@@ -25,14 +25,12 @@ import "./App.css";
 
 function App() {
   return (
-    <Router>
-      <div className="App">
-        <Routes>
-          <Route path="/">{NoteList}</Route>
-          <Route path="/todo">{TodoList}</Route>
-        </Routes>
-      </div>
-    </Router>
+    <div className="App">
+      <Routes>
+        <Route path="/" element={<NoteList />} />
+        <Route path="/todo" element={<TodoList />} />
+      </Routes>
+    </div>
   );
 }
 
