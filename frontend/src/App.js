@@ -29,6 +29,7 @@ function App() {
   return (
     <div className="container dark">
       <div className="app">
+        <Header />
         <Routes>
           <Route path="/" exact element={<NoteListPage />} />
           <Route path="/note/:id" element={<NotePage />} />
