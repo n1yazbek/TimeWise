@@ -16,44 +16,29 @@ const NotePage = (props) => {
 
   let [notes, setNotes] = useState([]);
 
-  // let getNotes = async => {
-  //   let response = await fetch("http://localhost:8000/notes/");
-  //   let data = await response.json();
-  //   console.log(data);
-  // }
-
-  let getNotes = async () => {
-    let response = await fetch("http://localhost:8000/notes/");
-    let data = await response.json();
-    console.log(data);
-    setNotes(data);
-    //return Promise.resolve();
-  };
-
   useEffect(() => {
     getNote();
   }, [id]);
 
   let getNote = async () => {
-    let response = await fetch`(http://localhost:8000/notes/${id})`;
-
+    let response = await fetch(`http://localhost:8000/notes/${id}`, {});
     let data = await response.json();
     setNote(data);
-
-    return (
-      <div className="note">
-        <div className="note-header">
-          <h3>
-            <Link to="/">
-              <ArrowLeft />
-            </Link>
-          </h3>
-        </div>
-        {/* <p>{note?.body}</p> */}
-        <textarea value={note?.body}></textarea>
-      </div>
-    );
   };
+
+  return (
+    <div className="note">
+      <div className="note-header">
+        <h3>
+          <Link to="/">
+            <ArrowLeft />
+          </Link>
+        </h3>
+      </div>
+      {/* <p>{note?.body}</p> */}
+      <textarea value={note?.body}></textarea>
+    </div>
+  );
 };
 
 export default NotePage;
