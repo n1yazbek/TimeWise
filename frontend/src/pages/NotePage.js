@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { Link } from "react-router-dom";
@@ -13,6 +13,22 @@ const NotePage = (props) => {
   // console.log("params:", id);
 
   // let note = notes.find((note) => note.id === Number(id)); //Number() to ensure that the id is numeric
+
+  let [notes, setNotes] = useState([]);
+
+  // let getNotes = async => {
+  //   let response = await fetch("http://localhost:8000/notes/");
+  //   let data = await response.json();
+  //   console.log(data);
+  // }
+
+  let getNotes = async () => {
+    let response = await fetch("http://localhost:8000/notes/");
+    let data = await response.json();
+    console.log(data);
+    setNotes(data);
+    //return Promise.resolve();
+  };
 
   useEffect(() => {
     getNote();

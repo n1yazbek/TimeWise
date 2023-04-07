@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
+<<<<<<< HEAD
 import notes from "../assets/data";
+=======
+// import notes from "../assets/data";
+>>>>>>> 70b7ab2 (not working)
 import ListItem from "../components/ListItem";
 
 const NotesListPage = () => {
   let [notes, setNotes] = useState([]);
+<<<<<<< HEAD
 
   useEffect(() => {
     getNotes();
@@ -16,6 +21,8 @@ const NotesListPage = () => {
     setNotes(data);
   };
 
+=======
+>>>>>>> 70b7ab2 (not working)
   return (
     <div className="notes">
       <div className="notes-header">
