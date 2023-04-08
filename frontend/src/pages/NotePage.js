@@ -57,18 +57,12 @@ const NotePage = ({ history }) => {
   let handleSubmit = async () => {
     if (note.id !== "new" && !note.body) {
       deleteNote();
-    } else if (note.id === "new") {
+    } else if (note.id !== "new") {
       updateNote();
     } else if (note.id === "new" && note !== null) {
       createNote();
     }
-
-    try {
-      await updateNote();
-      history.push("/");
-    } catch (error) {
-      console.error(error);
-    }
+    history.push("/");
   };
 
   return (
@@ -76,10 +70,14 @@ const NotePage = ({ history }) => {
       <div className="note-header">
         <h3>
           <Link to="/">
-            <ArrowLeft onClick={handleSubmit()} />
+            <ArrowLeft onClick={handleSubmit} />
           </Link>
         </h3>
-        <button onClick={deleteNote}>Delete</button>
+        {id !== "new" ? (
+          <button onClick={deleteNote}>Delete</button>
+        ) : (
+          <button onClick={handleSubmit}>Done</button>
+        )}
       </div>
       <textarea
         onChange={(e) => {
