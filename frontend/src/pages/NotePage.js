@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
+import { createBrowserHistory } from "history";
 
 import { Link } from "react-router-dom";
 import { ReactComponent as ArrowLeft } from "../assets/arrow-left.svg";
 
-const NotePage = ({ history }) => {
+const NotePage = () => {
   let [note, setNote] = useState(null);
+
+  const history = createBrowserHistory();
 
   let { id } = useParams();
   console.log(id);
@@ -14,12 +17,18 @@ const NotePage = ({ history }) => {
 
   // let note = notes.find((note) => note.id === Number(id)); //Number() to ensure that the id is numeric
   useEffect(() => {
-    getNote();
+    if (id === "new") {
+      history.push("/");
+    } else {
+      getNote();
+    }
   }, [id]);
 
   let getNote = async () => {
     let response = await fetch(`http://localhost:8000/notes/${id}`, {});
+    console.log(response.status);
     let data = await response.json();
+
     setNote(data);
   };
 
@@ -54,12 +63,14 @@ const NotePage = ({ history }) => {
     history.push("/");
   };
 
-  let handleSubmit = async () => {
-    if (note.id !== "new" && !note.body) {
+  let handleSubmit = () => {
+    console.log("handlingSubmit");
+    console.log(note);
+    if (note !== null && note.id !== "new" && !note.body) {
       deleteNote();
-    } else if (note.id !== "new") {
+    } else if (note.id !== null && note.id !== "new") {
       updateNote();
-    } else if (note.id === "new" && note !== null) {
+    } else if (note !== null && note.id === "new") {
       createNote();
     }
     history.push("/");
