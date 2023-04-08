@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { ReactComponent as ArrowLeft } from "../assets/arrow-left.svg";
 
-const NotePage = (props) => {
+const NotePage = ({ history }) => {
   let [note, setNote] = useState(null);
 
   let { id } = useParams();
@@ -13,9 +13,6 @@ const NotePage = (props) => {
   // console.log("params:", id);
 
   // let note = notes.find((note) => note.id === Number(id)); //Number() to ensure that the id is numeric
-
-  let [notes, setNotes] = useState([]);
-
   useEffect(() => {
     getNote();
   }, [id]);
@@ -26,17 +23,70 @@ const NotePage = (props) => {
     setNote(data);
   };
 
+  let createNote = async () => {
+    await fetch(`http://localhost:8000/notes/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ...note, updated: new Date() }),
+    });
+  };
+
+  let updateNote = async () => {
+    await fetch(`http://localhost:8000/notes/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ...note, updated: new Date() }),
+    });
+  };
+
+  let deleteNote = async () => {
+    await fetch(`http://localhost:8000/notes/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(note),
+    });
+    history.push("/");
+  };
+
+  let handleSubmit = async () => {
+    if (note.id !== "new" && !note.body) {
+      deleteNote();
+    } else if (note.id === "new") {
+      updateNote();
+    } else if (note.id === "new" && note !== null) {
+      createNote();
+    }
+
+    try {
+      await updateNote();
+      history.push("/");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="note">
       <div className="note-header">
         <h3>
           <Link to="/">
-            <ArrowLeft />
+            <ArrowLeft onClick={handleSubmit()} />
           </Link>
         </h3>
+        <button onClick={deleteNote}>Delete</button>
       </div>
-      {/* <p>{note?.body}</p> */}
-      <textarea value={note?.body}></textarea>
+      <textarea
+        onChange={(e) => {
+          setNote({ ...note, body: e.target.value });
+        }}
+        value={note?.body}
+      ></textarea>
     </div>
   );
 };
