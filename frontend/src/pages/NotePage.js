@@ -6,11 +6,12 @@ import { Link } from "react-router-dom";
 import { ReactComponent as ArrowLeft } from "../assets/arrow-left.svg";
 
 const NotePage = () => {
+  let { id } = useParams();
+
   let [note, setNote] = useState(null);
 
   const history = createBrowserHistory();
 
-  let { id } = useParams();
   console.log(id);
   // let id = 1;
   // console.log("params:", id);
@@ -25,10 +26,10 @@ const NotePage = () => {
   }, [id]);
 
   let getNote = async () => {
+    if (note.id === "new") return;
     let response = await fetch(`http://localhost:8000/notes/${id}`, {});
     console.log(response.status);
     let data = await response.json();
-
     setNote(data);
   };
 
@@ -63,16 +64,28 @@ const NotePage = () => {
     history.push("/");
   };
 
+  // let handleSubmit = () => {
+  //   console.log("handlingSubmit");
+  //   console.log(note);
+  //   if (note !== null && note.id !== "new" && !note.body) {
+  //     deleteNote();
+  //   } else if (note.id !== null && note.id !== "new") {
+  //     updateNote();
+  //   } else if (note !== null && note.id === "new") {
+  //     createNote();
+  //   }
+  //   history.push("/");
+  // };
+
   let handleSubmit = () => {
-    console.log("handlingSubmit");
-    console.log(note);
-    if (note !== null && note.id !== "new" && !note.body) {
+    if (id != "new" && !note.body) {
       deleteNote();
-    } else if (note.id !== null && note.id !== "new") {
+    } else if (id != "new") {
       updateNote();
-    } else if (note !== null && note.id === "new") {
+    } else if (id === "new" && note !== null) {
       createNote();
     }
+
     history.push("/");
   };
 
