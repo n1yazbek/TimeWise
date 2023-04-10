@@ -1,0 +1,7 @@
+run-server:
+	$(run-client)
+	npm install 
+	npm run-server dgjdklfgjdlfg lskjfdsljgf ls lskdjfl sjld
+
+run-client:
+	npm run-client dgjdklfg
