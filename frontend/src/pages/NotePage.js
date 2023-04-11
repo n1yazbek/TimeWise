@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import { Link } from "react-router-dom";
 import { ReactComponent as ArrowLeft } from "../assets/arrow-left.svg";
@@ -11,20 +11,16 @@ const NotePage = ({}) => {
 
   const history = createBrowserHistory();
 
-  console.log(id);
-  // let id = 1;
-  // console.log("params:", id);
-
   // let note = notes.find((note) => note.id === Number(id)); //Number() to ensure that the id is numeric
   useEffect(() => {
-    history.push("/");
     getNote();
   }, [id]);
 
   let getNote = async () => {
-    if (note.id == "new") return;
+    console.log("note is here: ", note);
+    if (id == "new") return;
     let response = await fetch(`http://localhost:8000/notes/${id}/`, {});
-    console.log(response.status);
+    console.log("status is here: ", response.status);
     let data = await response.json();
     setNote(data);
   };
@@ -50,7 +46,7 @@ const NotePage = ({}) => {
   };
 
   const deleteNote = async () => {
-    await fetch(`http://localhost:8000/notes/${id}/`, {
+    const result = await fetch(`http://localhost:8000/notes/${id}/`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -58,20 +54,8 @@ const NotePage = ({}) => {
       body: JSON.stringify(note),
     });
     history.push("/");
+    window.location.reload(); //TODO: fix history.push("/") not reloading the page. Replace window.location.reload()
   };
-
-  // let handleSubmit = () => {
-  //   console.log("handlingSubmit");
-  //   console.log(note);
-  //   if (note !== null && note.id !== "new" && !note.body) {
-  //     deleteNote();
-  //   } else if (note.id !== null && note.id !== "new") {
-  //     updateNote();
-  //   } else if (note !== null && note.id === "new") {
-  //     createNote();
-  //   }
-  //   history.push("/");
-  // };
 
   let handleSubmit = () => {
     if (id != "new" && !note.body) {
@@ -83,6 +67,16 @@ const NotePage = ({}) => {
     }
 
     history.push("/");
+    window.location.reload(); //TODO: fix history.push("/") not reloading the page. Replace window.location.reload()
+  };
+
+  let goBackHandler = () => {
+    //TODO: handle pop up message whether to save note or not
+    let save = window.confirm("Are you sure to execute this action?");
+    if (save) {
+      updateNote();
+    }
+    history.push("/");
   };
 
   return (
@@ -90,10 +84,10 @@ const NotePage = ({}) => {
       <div className="note-header">
         <h3>
           <Link to="/">
-            <ArrowLeft onClick={handleSubmit} />
+            <ArrowLeft onClick={goBackHandler} />
           </Link>
         </h3>
-        {id !== "new" ? (
+        {id != "new" ? (
           <button onClick={deleteNote}>Delete</button>
         ) : (
           <button onClick={handleSubmit}>Done</button>
