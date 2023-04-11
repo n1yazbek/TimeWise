@@ -13,6 +13,17 @@ let getTitle = (note) => {
 let getDate = (note) => {
   return new Date(note.updated).toLocaleDateString();
 };
+
+let getContent = (note) => {
+  let title = getTitle(note);
+  let content = note.body.replaceAll("\n", " ");
+  content = content.replaceAll(title, "");
+  if (content.length > 25) {
+    return content.slice(0, 25);
+  } else {
+    return content;
+  }
+};
 const ListItem = ({ note }) => {
   // console.log("PROPS: ", note);
   return (
@@ -21,6 +32,7 @@ const ListItem = ({ note }) => {
         <h3>{getTitle(note)}</h3>
         <p>
           <span>{getDate(note)}</span>
+          {getContent(note)}
         </p>
       </div>
     </Link>
