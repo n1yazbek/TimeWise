@@ -18,10 +18,27 @@ const NotesListPage = () => {
     setNotes(data);
   };
 
+  // let [accessToken, setAccessToken] = useState(null);
+
+  // useEffect(() => {
+  //   SpotifyAccessToken.getAccessToken().then((token) => {
+  //     // call the getAccessToken function from the imported component to get the access token
+  //     setAccessToken(token);
+  //     spotifyApi.setAccessToken(token);
+  //   });
+  // }, []);
+
   return (
     <div className="notes">
       <div className="notes-header">
         <h2 className="notes-title">&#9782; Notes</h2>
+        {/* <div className="spotify-player">
+          {accessToken ? (
+            <SpotifyPlayer accessToken={accessToken} /> // pass the access token as a prop to the SpotifyPlayer component
+          ) : (
+            <p>Connecting to Spotify...</p>
+          )}
+        </div> */}
         <p className="notes-count">{notes.length}</p>
       </div>
       <div className="notes-list">
