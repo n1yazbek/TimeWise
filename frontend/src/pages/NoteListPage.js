@@ -24,10 +24,7 @@ const NotesListPage = () => {
     <div className="notes">
       <div className="notes-header">
         <h2 className="notes-title">&#9782; Notes</h2>
-        <div
-          className="soundcloud-player"
-          dangerouslySetInnerHTML={{ __html: soundCloudPlayer }}
-        ></div>
+
         <p className="notes-count">{notes.length}</p>
       </div>
       <div className="notes-list">
@@ -35,8 +32,8 @@ const NotesListPage = () => {
           <ListItem key={index} note={note} />
         ))}
       </div>
-      {/* <PomodoroTimer />
-      <AddButton /> */}
+      {/* <PomodoroTimer /> */}
+      <AddButton />
     </div>
   );
 };
