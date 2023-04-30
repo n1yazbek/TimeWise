@@ -7,12 +7,7 @@ import "./App.css";
 import NoteListPage from "./pages/NoteListPage";
 import NotePage from "./pages/NotePage";
 
-
-
 function App() {
- 
-
-
   return (
     <div className="container dark">
       <div className="app">
