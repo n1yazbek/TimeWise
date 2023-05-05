@@ -9,12 +9,7 @@ import NotePage from "./pages/NotePage";
 import Pomodoro from "./components/Pomodoro";
 import SoundCloudPlayer from "./components/musicPlayer";
 
-
-
 function App() {
- 
-
-
   return (
     <div className="container dark">
       <div className="app">
