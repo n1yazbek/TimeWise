@@ -41,13 +41,17 @@ const NotesListPage = () => {
         </div> */}
         <p className="notes-count">{notes.length}</p>
       </div>
+      <div>
+        <h1>My SoundCloud Playlist</h1>
+        {/* <SoundCloudPlayer playlistId="1523959897" width="100%" height="450" /> */}
+      </div>
       <div className="notes-list">
         {notes.map((note, index) => (
           <ListItem key={index} note={note} />
         ))}
       </div>
-      <PomodoroTimer />
-      <AddButton />
+      {/* <PomodoroTimer />
+      <AddButton /> */}
     </div>
   );
 };
