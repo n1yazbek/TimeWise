@@ -6,8 +6,8 @@ import TodoList from "./pages/TodoList";
 import "./App.css";
 import NoteListPage from "./pages/NoteListPage";
 import NotePage from "./pages/NotePage";
-import Pomodoro from "./components/Pomodoro";
-import SoundCloudPlayer from "./components/musicPlayer";
+
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
@@ -18,21 +18,9 @@ function App() {
           <Route path="/" exact element={<NoteListPage />} />
           <Route path="/note/:id" element={<NotePage />} />
           <Route path="/todoList" element={<TodoList />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </div>
-      
-      <div className="App">
-      <div className="timer-container">
-        <Pomodoro />
-      </div>
-      <div className="music-player-container">
-        <SoundCloudPlayer />
-      </div>
-      <div className="notes-list-container">
-        <NoteListPage />
-      </div>
-    </div>
-
     </div>
   );
 }
