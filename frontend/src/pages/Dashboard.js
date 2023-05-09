@@ -1,21 +1,26 @@
 import React from "react";
-import Pomodoro from "../components/Pomodoro";
-import SoundCloudPlayer from "../components/musicPlayer";
+// import Notes from './Notes';
+import Pomodoro from "../components/Pomodoro3";
+// import BackgroundMusic from './BackgroundMusic';
+import "./Dashboard.css"; // Import the CSS file for styling
 import NotesListPage from "./NoteListPage";
-function Dashboard() {
+
+const Dashboard = () => {
   return (
-    <div className="App">
-      <div className="timer-container">
-        <Pomodoro />
-      </div>
-      <div className="music-player-container">
-        <SoundCloudPlayer />
-      </div>
-      <div className="notes-list-container">
-        <NotesListPage />
+    <div className="dashboard">
+      <h1>Personal Tool Dashboard</h1>
+      <div className="dashboard-grid">
+        <div className="notes">{<NotesListPage />}</div>
+        <div className="pomodoro">
+          <Pomodoro />
+        </div>
+        <div className="background-music">
+          {/* <BackgroundMusic /> */}
+          askjhdsakjhaskjd
+        </div>
       </div>
     </div>
   );
-}
+};
 
 export default Dashboard;
