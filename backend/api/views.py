@@ -5,4 +5,4 @@ from django.http import JsonResponse
 
 
 def getRoutes(request):
-    return JsonResponse('Our API', safe=False)
+    return JsonResponse('My my my API', safe=False)
