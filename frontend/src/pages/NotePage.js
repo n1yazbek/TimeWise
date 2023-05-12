@@ -19,14 +19,14 @@ const NotePage = ({}) => {
   let getNote = async () => {
     console.log("note is here: ", note);
     if (id == "new") return;
-    let response = await fetch(`http://localhost:8000/notes/${id}/`, {});
+    let response = await fetch(`http://127.0.0.1:8000/api/notes/${id}/`, {});
     console.log("status is here: ", response.status);
     let data = await response.json();
     setNote(data);
   };
 
   const createNote = async () => {
-    await fetch(`http://localhost:8000/notes/`, {
+    await fetch(`http://127.0.0.1:8000/api/notes/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -36,7 +36,7 @@ const NotePage = ({}) => {
   };
 
   const updateNote = async () => {
-    await fetch(`http://localhost:8000/notes/${id}/`, {
+    await fetch(`http://127.0.0.1:8000/api/notes/${id}/`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -46,7 +46,7 @@ const NotePage = ({}) => {
   };
 
   const deleteNote = async () => {
-    const result = await fetch(`http://localhost:8000/notes/${id}/`, {
+    const result = await fetch(`http://127.0.0.1:8000/api/notes/${id}/`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
