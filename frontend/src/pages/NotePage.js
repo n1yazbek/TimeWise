@@ -36,7 +36,7 @@ const NotePage = ({}) => {
   };
 
   const updateNote = async () => {
-    await fetch(`http://127.0.0.1:8000/api/notes/${id}/`, {
+    await fetch(`/api/notes/${id}/`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
