@@ -152,6 +152,17 @@ const NotePage = ({}) => {
           <button onClick={handleSubmit}>Done</button>
         )}
       </div>
+      <input
+        type="text"
+        onChange={(e) => {
+          setNote({
+            ...note,
+            title: e.target.value,
+          });
+        }}
+        value={note?.title}
+        placeholder="Note title"
+      />
       <textarea
         onChange={(e) => {
           setNote({ ...note, content: e.target.value });
