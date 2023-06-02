@@ -1,9 +1,8 @@
 import React from "react";
-// import Notes from './Notes';
-import Pomodoro from "../components/Pomodoro3";
-// import BackgroundMusic from './BackgroundMusic';
+import Pomodoro from "../components/Pomodoro";
 import "./Dashboard.css"; // Import the CSS file for styling
 import NotesListPage from "./NoteListPage";
+import MusicPlayer from "../components/MusicPlayer";
 
 const Dashboard = () => {
   return (
@@ -15,8 +14,7 @@ const Dashboard = () => {
           <Pomodoro />
         </div>
         <div className="background-music">
-          {/* <BackgroundMusic /> */}
-          askjhdsakjhaskjd
+          <MusicPlayer />
         </div>
       </div>
     </div>

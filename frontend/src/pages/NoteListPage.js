@@ -2,21 +2,35 @@ import React, { useState, useEffect } from "react";
 import ListItem from "../components/ListItem";
 import AddButton from "../components/AddButton";
 
+import { API_URL } from "../constants";
+
 const NotesListPage = () => {
-  let [notes, setNotes] = useState([]);
-  let [soundCloudPlayer, setSoundCloudPlayer] = useState("");
+  let [notes, setNotes] = useState(null);
 
   useEffect(() => {
     getNotes();
-    setSoundCloudPlayer(
-      '<iframe width="100%" height="450" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/PLAYLIST_ID&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>'
-    );
+    console.log("====================================");
+    console.log("Fetching notes...");
+    console.log("====================================");
+    getNotes();
   }, []);
 
-  let getNotes = async () => {
-    let response = await fetch("http://127.0.0.1:8000/api/notes/"); // API is changed lready
-    let data = await response.json();
-    setNotes(data);
+  let getNotes = () => {
+    fetch(`${API_URL}/api/notes/`, {
+      method: "GET",
+      headers: {
+        Authorization: `Token ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error("Failed to fetch notes");
+      })
+      .then((data) => {
+        setNotes(data);
+      });
   };
 
   return (
@@ -24,14 +38,10 @@ const NotesListPage = () => {
       <div className="notes-header">
         <h2 className="notes-title">&#9782; Notes</h2>
 
-        <p className="notes-count">{notes.length}</p>
-      </div>
-      <div>
-        <h1>My SoundCloud Playlist</h1>
-        {/* <SoundCloudPlayer playlistId="1523959897" width="100%" height="450" /> */}
+        <p className="notes-count">{notes?.length}</p>
       </div>
       <div className="notes-list">
-        {notes.map((note, index) => (
+        {notes?.map((note, index) => (
           <ListItem key={index} note={note} />
         ))}
       </div>

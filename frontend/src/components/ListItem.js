@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 let getTitle = (note) => {
-  const title = note.body.split("\n")[0];
+  const title = note.title;
 
   if (title.length > 45) {
     return title.slice(0, 45);
@@ -11,12 +11,12 @@ let getTitle = (note) => {
 };
 
 let getDate = (note) => {
-  return new Date(note.updated).toLocaleDateString();
+  return new Date(note.updated_at).toLocaleDateString();
 };
 
 let getContent = (note) => {
   let title = getTitle(note);
-  let content = note.body.replaceAll("\n", " ");
+  let content = note.content.replaceAll("\n", " ");
   content = content.replaceAll(title, "");
   if (content.length > 25) {
     return content.slice(0, 25);
