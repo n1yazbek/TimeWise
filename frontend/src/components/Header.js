@@ -1,3 +1,5 @@
+import Pomodoro from "./Pomodoro";
+
 const Header = () => {
   return (
     <div className="app-header">

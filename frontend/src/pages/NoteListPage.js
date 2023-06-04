@@ -4,18 +4,25 @@ import AddButton from "../components/AddButton";
 
 import { API_URL } from "../constants";
 
-const NotesListPage = () => {
-  let [notes, setNotes] = useState(null);
+const NotesListPage = ({ forceRefresh }) => {
+  const [notes, setNotes] = useState(null);
+  const [, setToggleRefresh] = useState(false);
+
+  useEffect(() => {
+    if (forceRefresh) {
+      setToggleRefresh((prevToggleRefresh) => !prevToggleRefresh);
+    }
+  }, [forceRefresh]);
 
   useEffect(() => {
     getNotes();
     console.log("====================================");
     console.log("Fetching notes...");
     console.log("====================================");
-    getNotes();
+    // getNotes();
   }, []);
 
-  let getNotes = () => {
+  const getNotes = () => {
     fetch(`${API_URL}/api/notes/`, {
       method: "GET",
       headers: {

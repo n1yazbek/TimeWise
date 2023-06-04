@@ -1,60 +1,67 @@
 import React, { useState, useEffect } from "react";
 import "./Pomodoro.css"; // Import the CSS file for styling
 
-const Pomodoro = ({ initialMinutes = 25 }) => {
+const Pomodoro = ({
+  timeLeft,
+  isActive,
+  startTimer,
+  resetTimer,
+  pauseTimer,
+  calculateTimerProgress,
+}) => {
   const SECOND = 1000;
   const MINUTE = SECOND * 60;
-  const [started, setStarted] = useState(false);
-  const [isActive, setIsActive] = useState(false);
-  const [endTime, setEndTime] = useState(null);
-  const [timeLeft, setTimeLeft] = useState(initialMinutes * MINUTE);
-  const [initialTime, setInitialTime] = useState(initialMinutes * MINUTE);
+  // const [started, setStarted] = useState(false);
+  // const [isActive, setIsActive] = useState(false);
+  // const [endTime, setEndTime] = useState(null);
+  // const [timeLeft, setTimeLeft] = useState(initialMinutes * MINUTE);
+  // const [initialTime, setInitialTime] = useState(initialMinutes * MINUTE);
 
-  useEffect(() => {
-    if (isActive) {
-      setEndTime(Date.now() + timeLeft);
-    }
-  }, [isActive]);
+  // useEffect(() => {
+  //   if (isActive) {
+  //     setEndTime(Date.now() + timeLeft);
+  //   }
+  // }, [isActive]);
 
-  useEffect(() => {
-    if (isActive) {
-      const interval = setInterval(() => {
-        const newTimeLeft = endTime - Date.now();
-        if (newTimeLeft <= 0) {
-          clearInterval(interval);
-          setIsActive(false);
-          setTimeLeft(initialMinutes * MINUTE);
-        } else {
-          setTimeLeft(newTimeLeft);
-        }
-      }, 1000);
+  // useEffect(() => {
+  //   if (isActive) {
+  //     const interval = setInterval(() => {
+  //       const newTimeLeft = endTime - Date.now();
+  //       if (newTimeLeft <= 0) {
+  //         clearInterval(interval);
+  //         setIsActive(false);
+  //         setTimeLeft(initialMinutes * MINUTE);
+  //       } else {
+  //         setTimeLeft(newTimeLeft);
+  //       }
+  //     }, 1000);
 
-      return () => clearInterval(interval);
-    }
-  }, [isActive, endTime, initialMinutes]);
+  //     return () => clearInterval(interval);
+  //   }
+  // }, [isActive, endTime, initialMinutes]);
 
-  const startTimer = () => {
-    if (!started) {
-      setInitialTime(initialMinutes * MINUTE);
-      setStarted(true);
-    }
-    setIsActive(true);
-  };
+  // const startTimer = () => {
+  //   if (!started) {
+  //     setInitialTime(initialMinutes * MINUTE);
+  //     setStarted(true);
+  //   }
+  //   setIsActive(true);
+  // };
 
-  const resetTimer = () => {
-    setIsActive(false);
-    setTimeLeft(initialMinutes * MINUTE);
-    setStarted(false);
-  };
+  // const resetTimer = () => {
+  //   setIsActive(false);
+  //   setTimeLeft(initialMinutes * MINUTE);
+  //   setStarted(false);
+  // };
 
-  const pauseTimer = () => {
-    setIsActive(false);
-  };
+  // const pauseTimer = () => {
+  //   setIsActive(false);
+  // };
 
-  const calculateProgress = () => {
-    const progress = ((initialTime - timeLeft) / initialTime) * 100;
-    return Math.min(Math.max(progress, 0), 100);
-  };
+  // const calculateProgress = () => {
+  //   const progress = ((initialTime - timeLeft) / initialTime) * 100;
+  //   return Math.min(Math.max(progress, 0), 100);
+  // };
 
   const minutes = Math.floor((timeLeft / MINUTE) % 60);
   const seconds = Math.floor((timeLeft / SECOND) % 60);
@@ -70,13 +77,13 @@ const Pomodoro = ({ initialMinutes = 25 }) => {
       <div className="progress-bar">
         <div
           className="progress"
-          style={{ width: `${calculateProgress()}%` }}
+          style={{ width: `${calculateTimerProgress()}%` }}
         ></div>
       </div>
       <div className="buttons">
         {!isActive && (
           <button className="start" onClick={startTimer}>
-            {started ? "Continue" : "Start"}
+            {calculateTimerProgress() === 0 ? "Start" : "Continue"}
           </button>
         )}
         {isActive && (

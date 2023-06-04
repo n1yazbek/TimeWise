@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { createBrowserHistory } from "history";
 import { Link } from "react-router-dom";
 import { ReactComponent as ArrowLeft } from "../assets/arrow-left.svg";
 import { API_URL } from "../constants";
@@ -12,7 +11,6 @@ const NotePage = ({}) => {
 
   const navigate = useNavigate();
 
-  // let note = notes.find((note) => note.id === Number(id)); //Number() to ensure that the id is numeric
   useEffect(() => {
     getNote(id);
   }, [id]);
@@ -100,7 +98,7 @@ const NotePage = ({}) => {
       .catch((error) => {
         console.log("Failed to delete note:", error);
       });
-    navigate("/");
+    navigate("/", { state: { forceRefresh: true } });
   };
 
   let handleSubmit = () => {
@@ -117,16 +115,7 @@ const NotePage = ({}) => {
       console.log("creating");
       createNote();
     }
-    // if (id !== "new" && note.body === "") {
-    //   deleteNote();
-    // } else if (id !== "new") {
-    //   updateNote();
-    // } else if (id === "new" && note !== null) {
-    //   createNote();
-    // }
-
-    navigate("/");
-    // window.location.reload(); //TODO: fix history.push("/") not reloading the page. Replace window.location.reload()
+    navigate("/", { state: { forceRefresh: true } });
   };
 
   let goBackHandler = () => {
